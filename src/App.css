@@ -1,0 +1,60 @@
+/* 讓整個頁面成為 Flex 容器，並使內容上下左右置中 */
+.container {
+  display: flex;
+  justify-content: center; /* 水平置中 */
+  align-items: center;     /* 垂直置中 */
+  height: 100vh;           /* 使容器高度覆蓋全頁 */
+  background-color: #f0f0f0; /* 背景色，可自行調整 */
+}
+
+/* 設定登入外框的樣式 */
+.login-box {
+  background-color: #fff;  /* 背景色：白色 */
+  padding: 20px;           /* 內邊距 */
+  border: 1px solid #ccc;  /* 邊框 */
+  border-radius: 8px;      /* 圓角 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 陰影效果 */
+  width: 300px;            /* 固定寬度，可根據需要調整 */
+  text-align: center;      /* 文字置中 */
+}
+
+/* 表單元素的樣式 */
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;        /* 使標籤與輸入框左對齊 */
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;  /* 包含內邊距和邊框在內的總寬度 */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+p {
+  margin-top: 15px;
+  color: green;
+  font-weight: bold;
+}
