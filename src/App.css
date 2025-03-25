@@ -5,10 +5,12 @@
   align-items: center;     /* 垂直置中 */
   height: 100vh;           /* 使容器高度覆蓋全頁 */
   background-color: #f0f0f0; /* 背景色，可自行調整 */
+  padding: 20px;
+  padding-top: 80px; /* Adjust for the height of the fixed navbar */
 }
 
 /* 設定登入外框的樣式 */
-.login-box {
+.login-box, .profile-box {
   background-color: #fff;  /* 背景色：白色 */
   padding: 20px;           /* 內邊距 */
   border: 1px solid #ccc;  /* 邊框 */
@@ -16,6 +18,9 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 陰影效果 */
   width: 300px;            /* 固定寬度，可根據需要調整 */
   text-align: center;      /* 文字置中 */
+  max-width: 400px;
+  margin: 20px auto;
+  background-color: #f9f9f9;
 }
 
 /* 表單元素的樣式 */
@@ -39,6 +44,7 @@ input {
 }
 
 button {
+  display: block;
   width: 100%;
   padding: 10px;
   background-color: #007bff;
@@ -47,6 +53,7 @@ button {
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  margin-top: 10px;
 }
 
 button:hover {
@@ -57,4 +64,8 @@ p {
   margin-top: 15px;
   color: green;
   font-weight: bold;
+}
+
+h2 {
+  text-align: center;
 }
