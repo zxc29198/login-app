@@ -4,6 +4,7 @@ import { supabase } from './supabaseClient';
 function TodoList({ userId }) {
     const [todos, setTodos] = useState([]);
     const [newTask, setNewTask] = useState('');
+    const [showAddTask, setShowAddTask] = useState(false);
 
     // 讀取待辦事項
     useEffect(() => {
@@ -36,6 +37,7 @@ function TodoList({ userId }) {
         } else {
             setTodos([...todos, ...data]);
             setNewTask('');
+            setShowAddTask(false);
         }
     };
 
@@ -71,30 +73,60 @@ function TodoList({ userId }) {
         <div className="card shadow-lg mx-auto" style={{ maxWidth: '600px', marginTop: '20px' }}>
             <div className="card-body">
                 <h2 className="card-title text-center">待辦事項清單</h2>
-                <div className="mb-3">
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="新增待辦事項..."
-                        value={newTask}
-                        onChange={(e) => setNewTask(e.target.value)}
-                    />
-                    <button className="btn btn-primary w-100 mt-2" onClick={addTodo}>新增</button>
-                </div>
-                <ul className="list-group">
-                    {todos.map(todo => (
-                        <li key={todo.id} className="list-group-item d-flex justify-content-between align-items-center">
-                            <span
-                                style={{ textDecoration: todo.is_completed ? 'line-through' : 'none', cursor: 'pointer' }}
-                                onClick={() => toggleComplete(todo.id, todo.is_completed)}
-                            >
-                                {todo.task}
-                            </span>
-                            <button className="btn btn-danger btn-sm" onClick={() => deleteTodo(todo.id)}>刪除</button>
-                        </li>
-                    ))}
-                </ul>
+                {todos.length === 0 ? (
+                    <p className="text-center">尚無代辦清單</p>
+                ) : (
+                    <ul className="list-group">
+                        {todos.map(todo => (
+                            <li key={todo.id} className="list-group-item d-flex justify-content-between align-items-center">
+                                <span
+                                    style={{ textDecoration: todo.is_completed ? 'line-through' : 'none', cursor: 'pointer' }}
+                                    onClick={() => toggleComplete(todo.id, todo.is_completed)}
+                                >
+                                    {todo.task}
+                                </span>
+                                <button className="btn btn-danger btn-sm" onClick={() => deleteTodo(todo.id)}>刪除</button>
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </div>
+
+            {/* 浮動新增按鈕 */}
+            <button
+                className="btn btn-primary rounded-circle"
+                style={{ position: 'fixed', bottom: '20px', right: '20px', width: '60px', height: '60px' }}
+                onClick={() => setShowAddTask(true)}
+            >
+                +
+            </button>
+
+            {/* 新增代辦事項表單 */}
+            {showAddTask && (
+                <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">新增代辦事項</h5>
+                                <button type="button" className="btn-close" onClick={() => setShowAddTask(false)}></button>
+                            </div>
+                            <div className="modal-body">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="輸入代辦事項..."
+                                    value={newTask}
+                                    onChange={(e) => setNewTask(e.target.value)}
+                                />
+                            </div>
+                            <div className="modal-footer">
+                                <button className="btn btn-secondary" onClick={() => setShowAddTask(false)}>取消</button>
+                                <button className="btn btn-primary" onClick={addTodo}>新增</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
