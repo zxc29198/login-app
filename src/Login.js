@@ -8,13 +8,25 @@ function Login({ setCurrentUser }) {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    // 模擬登入邏輯，您可以替換為實際的 API 呼叫
-    if (account === 'test' && password === '1234') {
-      const user = { account, name: 'Test User' }; // 模擬的使用者資料
-      setCurrentUser(user);
-      navigate('/'); // 登入成功後跳轉到首頁
-    } else {
-      alert('帳號或密碼錯誤');
+    try {
+        const { data, error } = await supabase
+            .from('users')
+            .select('*')
+            .eq('account', account)
+            .eq('password', password);
+
+        if (error) {
+            console.error('登入失敗:', error);
+            alert('登入失敗，請檢查帳號或密碼');
+        } else if (data.length > 0) {
+            console.log('登入成功:', data[0]);
+            setCurrentUser(data[0]);
+            navigate('/');
+        } else {
+            alert('帳號或密碼錯誤');
+        }
+    } catch (err) {
+        console.error('登入過程中發生錯誤:', err);
     }
   };
 
