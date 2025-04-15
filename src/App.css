@@ -4,6 +4,7 @@
   justify-content: center; /* 水平置中 */
   align-items: center;     /* 垂直置中 */
   height: 100vh;           /* 使容器高度覆蓋全頁 */
+  text-align: center;      /* 文字置中 */
   background-color: #f0f0f0; /* 背景色，可自行調整 */
   padding: 20px;
   padding-top: 80px; /* Adjust for the height of the fixed navbar */
@@ -68,4 +69,13 @@ p {
 
 h2 {
   text-align: center;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.text-center {
+  margin-top: 20px;
 }
