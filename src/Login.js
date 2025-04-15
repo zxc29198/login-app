@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
 function Login() {
-  const [email, setEmail] = useState('');
+  const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = (e) => {
     e.preventDefault();
     // 在這裡處理登入邏輯
-    console.log('登入中...', { email, password });
+    console.log('登入中...', { account, password });
   };
 
   return (
@@ -15,12 +15,12 @@ function Login() {
       <h2>登入</h2>
       <form onSubmit={handleLogin}>
         <div className="form-group">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="account">帳號</label>
           <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            id="account"
+            value={account}
+            onChange={(e) => setAccount(e.target.value)}
             required
           />
         </div>
