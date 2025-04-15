@@ -8,12 +8,10 @@ import TodoList from './TodoList';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const handleLogout = () => {
     setCurrentUser(null);
-    setMessage('您已登出');
     navigate('/');
   };
 
@@ -42,7 +40,6 @@ function App() {
                 <div className="card shadow-lg mx-auto" style={{ maxWidth: '400px', marginTop: '100px' }}>
                   <div className="card-body">
                     <h2 className="card-title text-center">更新資訊</h2>
-                    {/* 更新資訊表單 */}
                     <button
                       className="btn btn-danger w-100 mt-3"
                       onClick={() => {

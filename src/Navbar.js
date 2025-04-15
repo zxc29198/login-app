@@ -5,8 +5,7 @@ function Navbar({ currentUser, onLogout }) {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
             <div className="container-fluid">
-                <h1>登入註冊系統</h1>
-
+                <h1>我的代辦清單</h1>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto">
                         {currentUser ? (
@@ -35,10 +34,10 @@ function Navbar({ currentUser, onLogout }) {
                         ) : (
                             <>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/">登入</Link>
+                                    <Link className="nav-link" to="/register">註冊</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/register">註冊</Link>
+                                    <Link className="nav-link" to="/">登入</Link>
                                 </li>
                             </>
                         )}
