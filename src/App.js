@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import Register from './Profile';
 import { supabase } from './supabaseClient';
 import TodoList from './TodoList';
+import Login from './Login'; // 確保有正確的登入頁面組件
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -33,6 +34,7 @@ function App() {
             }
           />
           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           <Route
             path="/update-info"
             element={

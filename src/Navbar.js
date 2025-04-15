@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
+import Login from './Login'; // 確保有正確的登入頁面組件
 
 function Navbar({ currentUser, onLogout }) {
     return (
@@ -48,7 +49,7 @@ function Navbar({ currentUser, onLogout }) {
                                     <Link className="nav-link" to="/register">註冊</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/">登入</Link>
+                                    <Link className="nav-link" to="/login">登入</Link>
                                 </li>
                             </>
                         )}
@@ -56,6 +57,15 @@ function Navbar({ currentUser, onLogout }) {
                 </div>
             </div>
         </nav>
+    );
+}
+
+function App() {
+    return (
+        <Routes>
+            {/* ...existing routes... */}
+            <Route path="/login" element={<Login />} />
+        </Routes>
     );
 }
 
