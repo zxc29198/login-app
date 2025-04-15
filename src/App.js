@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Navbar from './Navbar';
 import Register from './Profile';
 import { supabase } from './supabaseClient'; // 引入 Supabase 客戶端
+import TodoList from './TodoList'; // 引入 TodoList 元件
 
 const initialUsers = [
   { id: 1, name: 'John Doe', account: 'john_doe', password: 'password123' },
@@ -187,6 +188,7 @@ function App() {
                   <button onClick={handleLogout} className="btn btn-warning w-100 mt-2">登出</button>
                   <button onClick={handleDelete} className="btn btn-danger w-100 mt-2">刪除帳號</button>
                   {message && <p className="mt-3 text-success">{message}</p>}
+                  <TodoList userId={currentUser.id} />
                 </div>
               </div>
             )
