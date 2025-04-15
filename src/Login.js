@@ -1,28 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from './supabaseClient'; // 假設有 supabaseClient 文件
 
-function Login() {
+function Login({ setCurrentUser }) {
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const { data, error } = await supabase
-        .from('users')
-        .select('*')
-        .eq('account', account)
-        .eq('password', password);
-
-    if (error) {
-        console.error('登入失敗:', error);
-    } else if (data.length > 0) {
-        console.log('登入成功:', data[0]);
-        setCurrentUser(data[0]); // 假設有 setCurrentUser 函數
-        navigate('/'); // 跳轉到首頁
+    // 模擬登入邏輯，您可以替換為實際的 API 呼叫
+    if (account === 'test' && password === '1234') {
+      const user = { account, name: 'Test User' }; // 模擬的使用者資料
+      setCurrentUser(user);
+      navigate('/'); // 登入成功後跳轉到首頁
     } else {
-        console.log('帳號或密碼錯誤');
+      alert('帳號或密碼錯誤');
     }
   };
 
