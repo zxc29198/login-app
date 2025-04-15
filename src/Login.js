@@ -1,13 +1,29 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { supabase } from './supabaseClient'; // 假設有 supabaseClient 文件
 
 function Login() {
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // 在這裡處理登入邏輯
-    console.log('登入中...', { account, password });
+    const { data, error } = await supabase
+        .from('users')
+        .select('*')
+        .eq('account', account)
+        .eq('password', password);
+
+    if (error) {
+        console.error('登入失敗:', error);
+    } else if (data.length > 0) {
+        console.log('登入成功:', data[0]);
+        setCurrentUser(data[0]); // 假設有 setCurrentUser 函數
+        navigate('/'); // 跳轉到首頁
+    } else {
+        console.log('帳號或密碼錯誤');
+    }
   };
 
   return (
