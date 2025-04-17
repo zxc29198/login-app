@@ -1,63 +1,39 @@
 import React from 'react';
+import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import { Link, Route, Routes } from 'react-router-dom';
 import Login from './Login'; // 確保有正確的登入頁面組件
 
 function Navbar({ currentUser, onLogout }) {
-    return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-            <div className="container-fluid">
-                <h1 className="navbar-brand">我的代辦清單</h1>
-                <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
-                    aria-controls="navbarNav"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav ms-auto">
-                        {currentUser ? (
-                            <>
-                                <li className="nav-item dropdown">
-                                    <a
-                                        className="nav-link dropdown-toggle"
-                                        href="#"
-                                        id="navbarDropdown"
-                                        role="button"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                    >
-                                        功能列
-                                    </a>
-                                    <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li>
-                                            <Link className="dropdown-item" to="/update-info">更新資訊</Link>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li className="nav-item">
-                                    <button className="btn btn-danger" onClick={onLogout}>登出</button>
-                                </li>
-                            </>
-                        ) : (
-                            <>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/register">註冊</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/login">登入</Link>
-                                </li>
-                            </>
-                        )}
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    );
+  return (
+    <AppBar position="fixed">
+      <Toolbar>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          我的代辦清單
+        </Typography>
+        <Box>
+          {currentUser ? (
+            <>
+              <Button color="inherit" component={Link} to="/update-info">
+                更新資訊
+              </Button>
+              <Button color="inherit" onClick={onLogout}>
+                登出
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button color="inherit" component={Link} to="/register">
+                註冊
+              </Button>
+              <Button color="inherit" component={Link} to="/login">
+                登入
+              </Button>
+            </>
+          )}
+        </Box>
+      </Toolbar>
+    </AppBar>
+  );
 }
 
 function App() {

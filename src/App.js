@@ -1,15 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import Register from './Profile';
 import { supabase } from './supabaseClient';
 import TodoList from './TodoList';
-import Login from './Login'; // 確保有正確的登入頁面組件
+import Login from './Login';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setCurrentUser(user);
+      }
+    };
+    checkUser();
+  }, []);
 
   const handleLogout = () => {
     setCurrentUser(null);
