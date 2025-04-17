@@ -12,14 +12,14 @@ function Navbar({ currentUser, onLogout }) {
         </Typography>
         <Box>
           {currentUser ? (
-            <>
-              <Button color="inherit" component={Link} to="/update-info">
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Button color="inherit" component={Link} to="/update-info" sx={{ marginRight: 2 }}>
                 更新資訊
               </Button>
               <Button color="inherit" onClick={onLogout}>
                 登出
               </Button>
-            </>
+            </Box>
           ) : (
             <>
               <Button color="inherit" component={Link} to="/register">

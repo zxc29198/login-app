@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button, Box, Typography, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './supabaseClient';
+import Cookies from 'js-cookie'; // 引入 js-cookie 套件
 
 function Login({ setCurrentUser }) {
   const [account, setAccount] = useState('');
@@ -20,6 +21,7 @@ function Login({ setCurrentUser }) {
       console.error('登入失敗:', error);
     } else if (data.length > 0) {
       setCurrentUser(data[0]);
+      Cookies.set('user', JSON.stringify(data[0]), { expires: 1 }); // 設置 cookie，保存一天
       navigate('/');
     } else {
       alert('帳號或密碼錯誤');
