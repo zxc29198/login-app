@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 import { Card, CardContent, Typography, Button, Checkbox, TextField } from '@mui/material';
+import './App.css'; // 確保引入 CSS 檔案
 
 function TodoList({ userId }) {
     const [todos, setTodos] = useState([]);
@@ -38,17 +39,16 @@ function TodoList({ userId }) {
 
             if (error) {
                 console.error('Supabase 插入錯誤:', error);
-            } else {
-                console.log('新增成功:', data);
-                setTodos(prevTodos => {
-                    const updatedTodos = [...prevTodos, ...data];
-                    console.log('更新後的 todos 狀態:', updatedTodos);
-                    return updatedTodos;
-                });
-                setNewTask('');
+                alert('新增失敗，請稍後再試！');
+                return;
             }
+
+            console.log('新增成功:', data);
+            setTodos(prevTodos => [...prevTodos, ...data]);
+            setNewTask('');
         } catch (err) {
             console.error('未知錯誤:', err);
+            alert('發生未知錯誤，請稍後再試！');
         }
     };
 
@@ -99,39 +99,7 @@ function TodoList({ userId }) {
     };
 
     return (
-        <div className="todo-list">
-            {todos.map(todo => (
-                <Card key={todo.id} sx={{ marginBottom: 2 }}>
-                    <CardContent>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <Checkbox
-                                checked={todo.is_completed}
-                                onChange={() => toggleComplete(todo.id, todo.is_completed)}
-                            />
-                            {editingTask === todo.id ? (
-                                <TextField
-                                    value={editingText}
-                                    onChange={(e) => setEditingText(e.target.value)}
-                                    onBlur={() => saveEdit(todo.id)}
-                                    autoFocus
-                                />
-                            ) : (
-                                <Typography
-                                    variant="h6"
-                                    component="div"
-                                    style={{ textDecoration: todo.is_completed ? 'line-through' : 'none', flexGrow: 1 }}
-                                    onDoubleClick={() => startEditing(todo.id, todo.task)}
-                                >
-                                    {todo.task}
-                                </Typography>
-                            )}
-                            <Button color="error" onClick={() => deleteTodo(todo.id)}>
-                                刪除
-                            </Button>
-                        </div>
-                    </CardContent>
-                </Card>
-            ))}
+        <div>
             <div style={{ marginTop: 16 }}>
                 <TextField
                     value={newTask}
@@ -142,6 +110,40 @@ function TodoList({ userId }) {
                 <Button onClick={addTodo} variant="contained" color="primary" style={{ marginTop: 8 }}>
                     新增
                 </Button>
+            </div>
+            <div className="grid-container">
+                {todos.map(todo => (
+                    <Card key={todo.id} className="grid-item" sx={{ margin: 1 }}>
+                        <CardContent>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <Checkbox
+                                    checked={todo.is_completed}
+                                    onChange={() => toggleComplete(todo.id, todo.is_completed)}
+                                />
+                                {editingTask === todo.id ? (
+                                    <TextField
+                                        value={editingText}
+                                        onChange={(e) => setEditingText(e.target.value)}
+                                        onBlur={() => saveEdit(todo.id)}
+                                        autoFocus
+                                    />
+                                ) : (
+                                    <Typography
+                                        variant="h6"
+                                        component="div"
+                                        style={{ textDecoration: todo.is_completed ? 'line-through' : 'none', flexGrow: 1 }}
+                                        onDoubleClick={() => startEditing(todo.id, todo.task)}
+                                    >
+                                        {todo.task}
+                                    </Typography>
+                                )}
+                                <Button color="error" onClick={() => deleteTodo(todo.id)}>
+                                    刪除
+                                </Button>
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))}
             </div>
         </div>
     );

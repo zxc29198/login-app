@@ -90,3 +90,14 @@ h2 {
 .text-center {
   margin-top: 20px;
 }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 三欄 */
+    gap: 16px; /* 卡片間距 */
+    padding: 16px;
+}
+
+.grid-item {
+    padding: 8px;
+}
