@@ -11,19 +11,19 @@ function Profile() {
 
     // 註冊處理函數
     const handleRegister = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // 防止表單默認提交行為
         try {
-            // 在 users 表格中插入新用戶資料
+            // 在 Supabase 的 users 表中插入新用戶資料
             const { data, error } = await supabase
                 .from('users')
                 .insert([{ name, account, password }]);
 
-            if (error) throw error;
+            if (error) throw error; // 如果有錯誤，拋出異常
 
-            setMessage('註冊成功！');
+            setMessage('註冊成功！'); // 註冊成功提示
             setTimeout(() => navigate('/'), 2000); // 2 秒後跳轉到登入頁面
         } catch (error) {
-            setMessage(`註冊失敗: ${error.message}`);
+            setMessage(`註冊失敗: ${error.message}`); // 顯示錯誤信息
         }
     };
 

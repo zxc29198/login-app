@@ -9,30 +9,34 @@ function TodoList({ userId }) {
   const [editingTask, setEditingTask] = useState(null);
   const [editingText, setEditingText] = useState('');
 
+  // useEffect 用於在組件加載時從 Supabase 獲取待辦事項
   useEffect(() => {
     const fetchTodos = async () => {
+      // 從 Supabase 的 todos 表中選取屬於當前用戶的待辦事項
       const { data, error } = await supabase
         .from('todos')
         .select('*')
         .eq('user_id', userId);
 
       if (error) {
-        console.error('Error fetching todos:', error);
+        console.error('Error fetching todos:', error); // 錯誤處理
       } else {
-        setTodos(data);
+        setTodos(data); // 將獲取的數據設置到狀態中
       }
     };
 
     fetchTodos();
   }, [userId]);
 
+  // 新增待辦事項的函數
   const addTodo = async () => {
     if (!newTask.trim()) {
-      console.log('新增失敗：newTask 為空');
+      console.log('新增失敗：newTask 為空'); // 防止新增空任務
       return;
     }
 
     try {
+      // 向 Supabase 插入新任務
       const { data, error } = await supabase
         .from('todos')
         .insert([{ task: newTask, is_completed: false, user_id: userId }]);
@@ -44,8 +48,8 @@ function TodoList({ userId }) {
       }
 
       console.log('新增成功:', data);
-      setTodos(prevTodos => [...prevTodos, ...data]);
-      setNewTask('');
+      setTodos(prevTodos => [...prevTodos, ...data]); // 更新狀態
+      setNewTask(''); // 清空輸入框
     } catch (err) {
       console.error('未知錯誤:', err);
       alert('發生未知錯誤，請稍後再試！');

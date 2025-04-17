@@ -11,19 +11,21 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
 
+  // 檢查當前用戶是否已登入
   useEffect(() => {
     const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await supabase.auth.getUser(); // 從 Supabase 獲取當前用戶
       if (user) {
-        setCurrentUser(user);
+        setCurrentUser(user); // 如果用戶存在，設置當前用戶狀態
       }
     };
     checkUser();
   }, []);
 
+  // 處理登出邏輯
   const handleLogout = () => {
-    setCurrentUser(null);
-    navigate('/');
+    setCurrentUser(null); // 清空當前用戶狀態
+    navigate('/'); // 跳轉到首頁
   };
 
   return (
@@ -49,7 +51,7 @@ function App() {
             path="/update-info"
             element={
               currentUser ? (
-                <div className="card shadow-lg mx-auto" style={{ maxWidth: '400px', marginTop: '100px' }}>
+                <div className="card shadow-lg mx-auto" style={{ maxWidth: '500 px', marginTop: '100px' }}>
                   <div className="card-body">
                     <h2 className="card-title text-center">更新資訊</h2>
                     <button
