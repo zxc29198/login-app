@@ -26,17 +26,29 @@ function TodoList({ userId }) {
     }, [userId]);
 
     const addTodo = async () => {
-        if (!newTask.trim()) return;
+        if (!newTask.trim()) {
+            console.log('新增失敗：newTask 為空');
+            return;
+        }
 
-        const { data, error } = await supabase
-            .from('todos')
-            .insert([{ task: newTask, is_completed: false, user_id: userId }]);
+        try {
+            const { data, error } = await supabase
+                .from('todos')
+                .insert([{ task: newTask, is_completed: false, user_id: userId }]);
 
-        if (error) {
-            console.error('Error adding todo:', error);
-        } else {
-            setTodos([...todos, ...data]);
-            setNewTask('');
+            if (error) {
+                console.error('Supabase 插入錯誤:', error);
+            } else {
+                console.log('新增成功:', data);
+                setTodos(prevTodos => {
+                    const updatedTodos = [...prevTodos, ...data];
+                    console.log('更新後的 todos 狀態:', updatedTodos);
+                    return updatedTodos;
+                });
+                setNewTask('');
+            }
+        } catch (err) {
+            console.error('未知錯誤:', err);
         }
     };
 
