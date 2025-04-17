@@ -61,6 +61,7 @@ function Login({ setCurrentUser }) {
             color="primary"
             fullWidth
             sx={{ marginTop: 2 }}
+            onClick={handleLogin} // 確保按鈕觸發 handleLogin
           >
             登入
           </Button>
