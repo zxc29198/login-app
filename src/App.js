@@ -83,31 +83,3 @@ function App() {
 }
 
 export default App;
-
-<div className="grid-container">
-    {todos.map(todo => (
-        <Card key={todo.id} className="grid-item" sx={{ margin: 1 }}>
-            <CardContent>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Checkbox
-                        checked={todo.is_completed}
-                        onChange={() => toggleComplete(todo.id, todo.is_completed)}
-                    />
-                    <Typography
-                        variant="h6"
-                        component="div"
-                        style={{
-                            textDecoration: todo.is_completed ? 'line-through' : 'none',
-                            flexGrow: 1,
-                        }}
-                    >
-                        {todo.task}
-                    </Typography>
-                    <Button color="error" onClick={() => deleteTodo(todo.id)}>
-                        刪除
-                    </Button>
-                </div>
-            </CardContent>
-        </Card>
-    ))}
-</div>
