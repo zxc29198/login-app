@@ -6,6 +6,7 @@ import Register from './Profile';
 import { supabase } from './supabaseClient';
 import TodoList from './TodoList';
 import Login from './Login';
+import Cookies from 'js-cookie'; // 引入 js-cookie 套件
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -14,9 +15,16 @@ function App() {
   // 檢查當前用戶是否已登入
   useEffect(() => {
     const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser(); // 從 Supabase 獲取當前用戶
-      if (user) {
-        setCurrentUser(user); // 如果用戶存在，設置當前用戶狀態
+      // 從 Cookie 中檢查是否有已登入的使用者
+      const userCookie = Cookies.get('user');
+      if (userCookie) {
+        const user = JSON.parse(userCookie);
+        setCurrentUser(user); // 設置當前使用者狀態
+      } else {
+        const { data: { user } } = await supabase.auth.getUser(); // 從 Supabase 獲取當前用戶
+        if (user) {
+          setCurrentUser(user); // 如果用戶存在，設置當前用戶狀態
+        }
       }
     };
     checkUser();
@@ -51,7 +59,7 @@ function App() {
             path="/update-info"
             element={
               currentUser ? (
-                <div className="card shadow-lg mx-auto" style={{ maxWidth: '500 px', marginTop: '100px' }}>
+                <div className="card shadow-lg mx-auto" style={{ maxWidth: '800px', marginTop: '100px' }}> {/* 將寬度調整為 800px */}
                   <div className="card-body">
                     <h2 className="card-title text-center">更新資訊</h2>
                     <button
