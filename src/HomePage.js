@@ -59,6 +59,9 @@ function TodoList({ userId }) {
             console.log('新增成功:', data);
             setTodos(prevTodos => [...prevTodos, ...data]);
             setNewTask('');
+
+            // 刷新頁面
+            window.location.reload();
         } catch (err) {
             console.error('未知錯誤:', err);
             alert('發生未知錯誤，請稍後再試！');
