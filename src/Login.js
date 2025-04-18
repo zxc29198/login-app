@@ -30,10 +30,15 @@ function Login({ setCurrentUser }) {
 
   return (
     <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      minHeight="100vh"
+      sx={{
+        width: '100%', // 設置寬度為 100%
+        maxWidth: 400, // 最大寬度為 400px
+        margin: '0 auto', // 水平置中
+        padding: 2, // 添加內邊距
+        boxShadow: 3, // 添加陰影效果
+        borderRadius: 2, // 添加圓角
+        backgroundColor: 'white', // 背景顏色
+      }}
     >
       <Paper elevation={3} sx={{ padding: 4, width: 300 }}>
         <Typography variant="h5" component="h1" gutterBottom>
